@@ -44,11 +44,82 @@ A YAML-based registry system that catalogs WAC and RCW legal document structure 
 - **Error Handling**: Comprehensive logging and graceful failure handling
 - **Data Integrity**: Maintains parent-child relationships throughout hierarchy
 
-## 🔄 HTML Content Scraper (PLANNED)
+## 🔄 HTML Content Scraper (COMPLETED ✅)
 
-A scraper that extracts the raw HTML for every title, chapter, and section and saves the output to the `data/raw_html/` folder. This feature will be implemented in a future phase, building upon the registry system to:
+An HTML content scraper that downloads and saves the complete raw HTML content for every title (with dispositions embedded), chapter, and section identified in the registry, organizing files by legal code type and hierarchical structure.
 
-- Download complete HTML content for all URLs captured in registries
-- Organize files by legal code type and hierarchical structure
-- Include disposition data for titles
-- Implement content change detection and versioning
+### Core Features
+
+1. **HTML Content Storage**: Downloads complete HTML content for all URLs cataloged in registries
+   - Organized file structure: `data/raw_html/{code_type}/{title_number}/{chapter_number}/`
+   - Systematic naming: `title_{number}.html`, `chapter_{number}.html`, `section_{number}.html`
+   - Special handling for disposition content: `title_{number}_disposition.html`
+
+2. **Registry-Based Scraping**: Uses existing registries as the source of URLs to scrape
+   - Leverages the completed registry system for comprehensive coverage
+   - Maintains hierarchical relationships between content files
+   - Supports both WAC and RCW content types
+
+3. **Content Management**:
+   - `ContentManager` class for organized file storage and retrieval
+   - Content existence checking to avoid duplicate downloads
+   - File listing and statistics for monitoring scraped content
+   - Structured directory creation and management
+
+4. **Advanced Scraping Features**:
+   - Rate limiting support (reuses existing scraper infrastructure)
+   - Fake user agent support for Cloudflare bypass
+   - Error handling and retry logic
+   - Skip existing files option for incremental updates
+   - Overwrite mode for fresh content downloads
+
+5. **Command-Line Interface Extensions**:
+   - `scrape-content {wac|rcw|both}`: Main content scraping command
+   - `list-content`: List all scraped content files
+   - `content-info`: Show statistics about scraped content
+   - All commands support filtering by code type and verbose output
+
+### Implementation Details
+- **Package Structure**: Extended existing architecture with minimal changes
+  - `ContentManager`: File organization and storage management  
+  - `ContentScraper`: Registry-based content scraping orchestration
+  - Extended `LegalCodeScraper`: Added `scrape_html_content()` method
+  - Enhanced CLI: New subcommands integrated with existing interface
+- **Dependencies**: Uses existing project dependencies (no new requirements)
+- **Error Handling**: Comprehensive logging and graceful failure handling
+- **File Organization**: Hierarchical structure preserving legal code relationships
+
+### Usage Examples
+
+```bash
+# Scrape all WAC content
+python -m wa_law_scraper.cli scrape-content wac --rate-limit --verbose
+
+# Scrape both WAC and RCW content
+python -m wa_law_scraper.cli scrape-content both --overwrite
+
+# List scraped content
+python -m wa_law_scraper.cli list-content --code-type wac
+
+# Show content statistics  
+python -m wa_law_scraper.cli content-info --verbose
+```
+
+### File Structure Example
+```
+data/raw_html/
+├── wac/
+│   ├── 01/
+│   │   ├── title_01.html                    # Main title page
+│   │   ├── title_01_disposition.html        # Disposition page  
+│   │   ├── 01-04/
+│   │   │   ├── chapter_01-04.html          # Chapter page
+│   │   │   ├── section_01-04-010.html      # Section pages
+│   │   │   └── section_01-04-020.html
+│   │   └── 01-06/
+│   │       └── ...
+│   └── 02/
+│       └── ...
+└── rcw/
+    └── ... (similar structure)
+```

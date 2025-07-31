@@ -1,0 +1,49 @@
+code_type: WAC
+created_at: '2025-07-31T14:15:39.119321'
+base_url: https://app.leg.wa.gov/wac/default.aspx
+titles:
+- name: Code Reviser, Office of the
+  url: https://app.leg.wa.gov/wac/default.aspx?cite=1
+  title_number: '1'
+  chapters:
+  - name: General provisions
+    url: https://app.leg.wa.gov/wac/default.aspx?cite=1-04
+    chapter_number: 1-04
+    parent_title_number: '1'
+    sections:
+    - name: Authority—Purpose—Scope
+      url: https://app.leg.wa.gov/wac/default.aspx?cite=1-04-001
+      section_number: 1-04-001
+      parent_chapter_number: 1-04
+      parent_title_number: '1'
+    - name: Definitions
+      url: https://app.leg.wa.gov/wac/default.aspx?cite=1-04-002
+      section_number: 1-04-002
+      parent_chapter_number: 1-04
+      parent_title_number: '1'
+    - name: Schedule of fees
+      url: https://app.leg.wa.gov/wac/default.aspx?cite=1-04-003
+      section_number: 1-04-003
+      parent_chapter_number: 1-04
+      parent_title_number: '1'
+  disposition_url: https://app.leg.wa.gov/wac/default.aspx?cite=1&dispo=true
+- name: Department of Ecology
+  url: https://app.leg.wa.gov/wac/default.aspx?cite=173
+  title_number: '173'
+  chapters:
+  - name: Dangerous waste regulations
+    url: https://app.leg.wa.gov/wac/default.aspx?cite=173-303
+    chapter_number: 173-303
+    parent_title_number: '173'
+    sections:
+    - name: Purpose and scope
+      url: https://app.leg.wa.gov/wac/default.aspx?cite=173-303-070
+      section_number: 173-303-070
+      parent_chapter_number: 173-303
+      parent_title_number: '173'
+    - name: Definitions
+      url: https://app.leg.wa.gov/wac/default.aspx?cite=173-303-040
+      section_number: 173-303-040
+      parent_chapter_number: 173-303
+      parent_title_number: '173'
+  disposition_url: https://app.leg.wa.gov/wac/default.aspx?cite=173&dispo=true

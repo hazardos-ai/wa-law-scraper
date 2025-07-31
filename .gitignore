@@ -1,2 +1,7 @@
 # pixi environments
 .pixi
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class

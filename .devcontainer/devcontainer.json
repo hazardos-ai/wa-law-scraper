@@ -1,5 +1,5 @@
 {
-    "name": "D3 Project Dev",
+    "name": "Washington Law Scraper Dev",
     "image": "ghcr.io/hazardos-ai/base:latest",
     "features": {},
     "customizations": {

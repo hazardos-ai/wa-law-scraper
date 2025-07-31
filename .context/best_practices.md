@@ -9,6 +9,7 @@ The philosophy behind Documentation-Driven Development is a simple: **from the p
 - When a feature is being modified, it should be modified documentation-first.
 - When documentation is modified, so should be the tests.
 - Documentation and software should both be versioned, and versions should match, so someone working with old versions of software should be able to find the proper documentation.
+- Pixi should be used for environment management, including but not limited to managing dependencies, one or more environments, builds, tasks, etc.
 
 So, the preferred order of operations for new features:
 - Write documentation

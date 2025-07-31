@@ -55,7 +55,7 @@ def test_registry_system():
     print("\nTesting registry system...")
     
     # Create a test registry with mock data
-    from wa_law_scraper.models import LegalCodeRegistry, Title, Chapter, Section
+    from wa_law_scraper.scripts.models import LegalCodeRegistry, Title, Chapter, Section
     from datetime import datetime
     
     # Create test data

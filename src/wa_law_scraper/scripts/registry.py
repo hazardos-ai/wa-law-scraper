@@ -133,15 +133,16 @@ class RegistryManager:
 class RegistryGenerator:
     """Generates new registries by scraping legal code websites."""
     
-    def __init__(self, registry_manager: RegistryManager, rate_limit_enabled: bool = False):
+    def __init__(self, registry_manager: RegistryManager, rate_limit_enabled: bool = False, use_fake_useragent: bool = True):
         """Initialize the registry generator.
         
         Args:
             registry_manager: RegistryManager instance for saving registries
             rate_limit_enabled: Whether to enable rate limiting for web requests
+            use_fake_useragent: Whether to use fake user agent to bypass Cloudflare protection
         """
         self.registry_manager = registry_manager
-        self.scraper = LegalCodeScraper(rate_limit_enabled=rate_limit_enabled)
+        self.scraper = LegalCodeScraper(rate_limit_enabled=rate_limit_enabled, use_fake_useragent=use_fake_useragent)
 
     def generate_wac_registry(self) -> Optional[LegalCodeRegistry]:
         """Generate a new WAC registry by scraping the website.

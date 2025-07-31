@@ -5,7 +5,7 @@ import logging
 import argparse
 from pathlib import Path
 
-from .registry import RegistryManager, RegistryGenerator
+from .scripts.registry import RegistryManager, RegistryGenerator
 
 
 def setup_logging(verbose: bool = False):
@@ -25,7 +25,9 @@ def setup_logging(verbose: bool = False):
 def cmd_generate(args):
     """Generate new registries."""
     registry_manager = RegistryManager(args.data_dir)
-    generator = RegistryGenerator(registry_manager, rate_limit_enabled=args.rate_limit)
+    # Use fake user agent by default, but allow disabling it
+    use_fake_useragent = not getattr(args, 'no_fake_useragent', False)
+    generator = RegistryGenerator(registry_manager, rate_limit_enabled=args.rate_limit, use_fake_useragent=use_fake_useragent)
     
     if args.code_type == 'wac':
         registry = generator.generate_wac_registry()
@@ -145,6 +147,11 @@ def main():
         '--rate-limit',
         action='store_true',
         help='Enable rate limiting for web requests'
+    )
+    gen_parser.add_argument(
+        '--no-fake-useragent',
+        action='store_true',
+        help='Disable fake user agent (use default user agent instead)'
     )
     gen_parser.set_defaults(func=cmd_generate)
     

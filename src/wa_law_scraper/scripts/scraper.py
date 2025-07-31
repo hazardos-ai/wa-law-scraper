@@ -4,12 +4,13 @@ import re
 import time
 import logging
 from typing import List, Optional, Tuple
-from urllib.parse import urljoin, urlparse, parse_qs
+from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
 
 from .models import Title, Chapter, Section
+from ..cloudflare import Agent
 
 
 logger = logging.getLogger(__name__)
@@ -18,18 +19,33 @@ logger = logging.getLogger(__name__)
 class LegalCodeScraper:
     """Scraper for Washington State legal codes (WAC and RCW)."""
     
-    def __init__(self, rate_limit_enabled: bool = False, delay_seconds: float = 1.0):
+    def __init__(self, rate_limit_enabled: bool = False, delay_seconds: float = 1.0, use_fake_useragent: bool = True):
         """Initialize the scraper.
         
         Args:
             rate_limit_enabled: Whether to enable rate limiting between requests
             delay_seconds: Delay in seconds between requests when rate limiting is enabled
+            use_fake_useragent: Whether to use fake user agent to bypass Cloudflare protection
         """
         self.rate_limit_enabled = rate_limit_enabled
         self.delay_seconds = delay_seconds
+        self.use_fake_useragent = use_fake_useragent
         self.session = requests.Session()
+        
+        # Configure user agent based on settings
+        if self.use_fake_useragent:
+            try:
+                agent = Agent()
+                user_agent = agent.generate['User-Agent']
+                logger.info(f"Using fake user agent: {user_agent}")
+            except Exception as e:
+                logger.warning(f"Failed to generate fake user agent, falling back to default: {e}")
+                user_agent = 'WA-Law-Scraper/1.0 (Educational/Research Purpose)'
+        else:
+            user_agent = 'WA-Law-Scraper/1.0 (Educational/Research Purpose)'
+            
         self.session.headers.update({
-            'User-Agent': 'WA-Law-Scraper/1.0 (Educational/Research Purpose)'
+            'User-Agent': user_agent
         })
 
     def _make_request(self, url: str) -> Optional[BeautifulSoup]:

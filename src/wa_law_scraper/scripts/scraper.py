@@ -5,6 +5,7 @@ import time
 import logging
 from typing import List, Optional, Tuple
 from urllib.parse import urljoin
+from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
@@ -405,3 +406,24 @@ class LegalCodeScraper:
 
         title.chapters = chapters
         return title
+
+    def scrape_html_content(self, url: str) -> Optional[str]:
+        """Scrape the complete HTML content from a URL.
+
+        Args:
+            url: URL to scrape content from
+
+        Returns:
+            Complete HTML content as string, or None if request failed
+        """
+        if self.rate_limit_enabled:
+            time.sleep(self.delay_seconds)
+
+        try:
+            logger.info(f"Scraping HTML content from: {url}")
+            response = self.session.get(url, timeout=30)
+            response.raise_for_status()
+            return response.text
+        except requests.RequestException as e:
+            logger.error(f"Failed to fetch HTML content from {url}: {e}")
+            return None

@@ -17,9 +17,14 @@ The WA Law Scraper provides a comprehensive registry system for Washington Admin
 - **Error handling and logging** for robust operation
 - **Registry management** (save, load, list, compare)
 
-### 🔄 HTML Content Scraper (Planned)
+### ✅ HTML Content Scraper (Implemented)
 
-Future implementation will download complete HTML content for all cataloged URLs.
+- **Complete HTML content downloading** for all cataloged URLs
+- **Organized file storage** in `data/raw_html/` with hierarchical structure
+- **Registry-based scraping** using existing URL catalogs
+- **Content management utilities** (list, statistics, existence checking)
+- **Incremental updates** with skip existing files option
+- **Rate limiting and error handling** integrated with existing infrastructure
 
 ## Installation
 
@@ -86,15 +91,52 @@ Show info for specific registry file:
 python -m wa_law_scraper.cli info --file data/registry/wac_registry_20240131_143022.yaml
 ```
 
+#### HTML Content Scraping
+
+Scrape HTML content for WAC:
+```bash
+python -m wa_law_scraper.cli scrape-content wac
+```
+
+Scrape HTML content for RCW:
+```bash
+python -m wa_law_scraper.cli scrape-content rcw
+```
+
+Scrape both WAC and RCW content:
+```bash
+python -m wa_law_scraper.cli scrape-content both
+```
+
+Scrape with rate limiting and overwrite existing files:
+```bash
+python -m wa_law_scraper.cli scrape-content wac --rate-limit --overwrite
+```
+
+#### Content Management
+
+List scraped content files:
+```bash
+python -m wa_law_scraper.cli list-content
+```
+
+List content for specific code type:
+```bash
+python -m wa_law_scraper.cli list-content --code-type wac
+```
+
+Show content statistics:
+```bash
+python -m wa_law_scraper.cli content-info --verbose
+```
+
 ### Python API
 
 ```python
-from wa_law_scraper import RegistryManager, RegistryGenerator
+from wa_law_scraper import RegistryManager, RegistryGenerator, ContentManager, ContentScraper
 
-# Create registry manager
+# Registry operations
 registry_manager = RegistryManager("data")
-
-# Generate new registries
 generator = RegistryGenerator(registry_manager, rate_limit_enabled=True)
 
 # Generate WAC registry
@@ -105,6 +147,18 @@ print(f"Generated WAC registry with {len(wac_registry.titles)} titles")
 latest_wac = registry_manager.get_latest_registry("WAC")
 if latest_wac:
     print(f"Latest WAC registry has {len(latest_wac.titles)} titles")
+
+# Content scraping operations
+content_manager = ContentManager("data")
+content_scraper = ContentScraper(registry_manager, content_manager, rate_limit_enabled=True)
+
+# Scrape content for latest WAC registry
+success = content_scraper.scrape_registry_content("WAC", skip_existing=True)
+print(f"Content scraping successful: {success}")
+
+# Get content statistics
+stats = content_manager.get_content_stats()
+print(f"Total content files: {stats['total_files']}")
 ```
 
 ## Data Structure
@@ -139,9 +193,24 @@ titles:
 
 ```
 data/
-└── registry/
-    ├── wac_registry_20240131_143022.yaml
-    └── rcw_registry_20240131_143145.yaml
+├── registry/
+│   ├── wac_registry_20240131_143022.yaml
+│   └── rcw_registry_20240131_143145.yaml
+└── raw_html/
+    ├── wac/
+    │   ├── 01/
+    │   │   ├── title_01.html
+    │   │   ├── title_01_disposition.html
+    │   │   ├── 01-04/
+    │   │   │   ├── chapter_01-04.html
+    │   │   │   ├── section_01-04-010.html
+    │   │   │   └── section_01-04-020.html
+    │   │   └── 01-06/
+    │   │       └── ...
+    │   └── 02/
+    │       └── ...
+    └── rcw/
+        └── ... (similar structure)
 ```
 
 ## Legal Code Sources

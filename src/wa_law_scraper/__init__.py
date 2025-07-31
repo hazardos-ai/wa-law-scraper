@@ -2,7 +2,7 @@
 
 from .scripts.models import Title, Chapter, Section, LegalCodeRegistry
 from .scripts.scraper import LegalCodeScraper
-from .scripts.registry import RegistryManager, RegistryGenerator
+from .scripts.registry import RegistryManager, RegistryGenerator, ContentManager, ContentScraper
 from .cloudflare import Agent, Proxy
 
 __version__ = "0.1.0"
@@ -14,6 +14,8 @@ __all__ = [
     "LegalCodeScraper",
     "RegistryManager",
     "RegistryGenerator",
+    "ContentManager",
+    "ContentScraper",
     "Agent",
     "Proxy",
 ]

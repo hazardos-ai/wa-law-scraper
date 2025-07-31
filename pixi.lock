@@ -783,7 +783,7 @@ packages:
 - pypi: ./
   name: wa-law-scraper
   version: 0.1.0
-  sha256: 4cb55e93fa48b2a7516f9c1859da6c141e973a609aa6018db1e657c4528ccf40
+  sha256: 1453bff0ef6936dee5546d0e1b42f0007bf76f959d4dbdd7cc468bf0165228ab
   requires_dist:
   - pyyaml
   - requests

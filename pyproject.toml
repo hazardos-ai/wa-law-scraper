@@ -34,6 +34,18 @@ docs-mkdocs-build = "cd docs/mkdocs && mkdocs build"
 docs-jupyter-book-build = "cd docs && jupyter-book build jupyter-book/"
 docs-jupyter-book-serve = "cd docs && jupyter-book build jupyter-book/ --open"
 docs-clean = "rm -rf docs/site docs/jupyter-book/_build"
+# Registry CLI tasks
+registry-generate-wac = "python -m wa_law_scraper.cli generate wac --verbose"
+registry-generate-rcw = "python -m wa_law_scraper.cli generate rcw --verbose"
+registry-generate-both = "python -m wa_law_scraper.cli generate both --verbose"
+registry-generate-wac-rate-limited = "python -m wa_law_scraper.cli generate wac --rate-limit --verbose"
+registry-generate-rcw-rate-limited = "python -m wa_law_scraper.cli generate rcw --rate-limit --verbose"
+registry-generate-both-rate-limited = "python -m wa_law_scraper.cli generate both --rate-limit --verbose"
+registry-list = "python -m wa_law_scraper.cli list"
+registry-list-wac = "python -m wa_law_scraper.cli list --code-type wac"
+registry-list-rcw = "python -m wa_law_scraper.cli list --code-type rcw"
+registry-info-wac = "python -m wa_law_scraper.cli info --code-type wac"
+registry-info-rcw = "python -m wa_law_scraper.cli info --code-type rcw"
 
 [tool.pixi.dependencies]
 pyyaml = ">=6.0.2,<7"

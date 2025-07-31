@@ -78,7 +78,7 @@ Below is an example of real urls that can help you with understanding HTML struc
       2. chapter_number: 1-21
       3. url: http://app.leg.wa.gov/WAC/default.aspx?cite=1-21
 
-## 🔄 Plan 2: HTML Content Scraper (FUTURE)
+## 🔄 Plan 2: HTML Content Scraper
 
 ### Overview
 Create a scraper that downloads and saves the complete raw HTML content for every title (with dispositions embedded), chapter, and section identified in the registry, organizing files by legal code type and hierarchical structure.

@@ -1,6 +1,6 @@
 """WA Law Scraper - Registry system for Washington State legal codes."""
 
-from .models import Title, Chapter, Section, LegalCodeRegistry
+from .scripts.models import Title, Chapter, Section, LegalCodeRegistry
 from .scraper import LegalCodeScraper
 from .registry import RegistryManager, RegistryGenerator
 

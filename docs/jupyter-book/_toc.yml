@@ -1,0 +1,11 @@
+format: jb-book
+root: ../shared/index
+chapters:
+- file: ../shared/getting-started
+- file: ../shared/api/index
+- file: ../shared/examples/index
+  sections:
+  - file: notebooks/tutorial
+  - file: notebooks/advanced
+  - file: notebooks/workflow
+- file: ../shared/contributing

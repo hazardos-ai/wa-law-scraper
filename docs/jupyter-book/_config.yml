@@ -1,0 +1,73 @@
+title: D3 Project Template
+author: Cordero Core
+copyright: "2025"
+logo: ""
+
+format: jb-book
+root: ../shared/index
+
+chapters:
+  - file: ../shared/getting-started
+    title: Getting Started
+  - file: ../shared/api/index
+    title: API Reference
+  - file: ../shared/examples/index
+    title: Examples
+    sections:
+      - file: notebooks/tutorial
+        title: Basic Tutorial
+      - file: notebooks/advanced
+        title: Advanced Features
+      - file: notebooks/workflow
+        title: Data Analysis Workflow
+  - file: ../shared/contributing
+    title: Contributing
+
+# Execution settings
+execute:
+  execute_notebooks: force
+  stderr_output: show
+  allow_errors: false
+  timeout: 30
+
+# HTML settings
+html:
+  favicon: ""
+  use_edit_page_button: true
+  use_repository_button: true
+  use_issues_button: true
+  use_download_button: true
+  home_page_in_navbar: false
+  navbar_number_sections: false
+  announcement: ""
+  analytics:
+    google_analytics_id: ""
+  comments:
+    hypothesis: false
+    utterances: false
+
+# Repository settings
+repository:
+  url: https://github.com/hazardos-ai/d3-project-template
+  path_to_book: docs/jupyter-book
+  branch: main
+
+# Launch buttons
+launch_buttons:
+  notebook_interface: jupyterlab
+  binderhub_url: ""
+  colab_url: ""
+
+# Advanced options
+sphinx:
+  extra_extensions:
+    - sphinx.ext.autodoc
+    - sphinx.ext.napoleon
+    - sphinx.ext.viewcode
+  config:
+    html_theme_options:
+      repository_url: https://github.com/hazardos-ai/d3-project-template
+      use_repository_button: true
+      use_edit_page_button: true
+    html_title: "D3 Project Template"
+    bibtex_reference_style: author_year
